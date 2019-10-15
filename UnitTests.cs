@@ -23,7 +23,7 @@ namespace MicrosoftDIStudy
         [Fact]
         public void Can_Scan_Assembly_Ends_With_Service()
         {
-            DIManager dIManager = new DIManager();
+            DIManagerForScan dIManager = new DIManagerForScan();
             var serv = dIManager.For<IService>();
             int sum = serv.Sum(1, 2);
             Assert.Equal(3, sum);

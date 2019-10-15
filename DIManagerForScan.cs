@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace MicrosoftDIStudy
 {
-    public class DIManager : DIManagerBase
+    public class DIManagerForScan : DIManagerBase
     {
         protected override void ConfigureServices()
         {
