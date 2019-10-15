@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using MicrosoftDIStudy.GenericServices;
 using MicrosoftDIStudy.Services;
 using System;
 using System.Linq;
@@ -29,5 +30,13 @@ namespace MicrosoftDIStudy
             Assert.Equal(3, sum);
         }
 
+        [Fact]
+        public void Can_Register_Generic_Typs()
+        {
+            DIManagerForGeneric dIManager = new DIManagerForGeneric();
+            var serv = dIManager.For<IGenericServices<int>>();
+            bool equal = serv.Equals(3, 3);
+            Assert.True(equal);
+        }
     }
 }
