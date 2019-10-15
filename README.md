@@ -1,10 +1,9 @@
-# README
+# Microsoft.Extensions.DependencyInjection.AdvanceUseage
 
-This is demo for advance usages of Microsoft.Extensions.DependencyInjection.
+This is a advance usage demo for Microsoft.Extensions.DependencyInjection.
 
-The demos are written in xunit test projects.
+It is written by xunit test projects which includes:
 
-It includes :
 1. simple useage di
 2. scan assembly to register service ends with some words
 3. register generic types
