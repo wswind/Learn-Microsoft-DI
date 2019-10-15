@@ -1,6 +1,6 @@
 # README
 
-This is a advance uage demo of Microsoft.Extensions.DependencyInjection.
+This is demo for advance usages of Microsoft.Extensions.DependencyInjection.
 
 The demos are written in xunit test projects.
 
