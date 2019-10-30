@@ -4,8 +4,10 @@ using System.Text;
 
 namespace MicrosoftDIStudy.GenericServices
 {
-    public interface IGenericServices<in T>
+    public interface IGenericService<in T>
     {
-        bool Equals(T a, T b);
+        bool Equal(T a, T b);
     }
+
+
 }

@@ -26,6 +26,7 @@ namespace MicrosoftDIStudy
         {
             DIManagerForScan dIManager = new DIManagerForScan();
             var serv = dIManager.For<IService>();
+            Assert.True(serv is Service);
             int sum = serv.Sum(1, 2);
             Assert.Equal(3, sum);
         }
@@ -33,9 +34,25 @@ namespace MicrosoftDIStudy
         [Fact]
         public void Can_Register_Generic_Typs()
         {
-            DIManagerForGeneric dIManager = new DIManagerForGeneric();
-            var serv = dIManager.For<IGenericServices<int>>();
-            bool equal = serv.Equals(3, 3);
+            var dIManager = new DIManagerForGeneric();
+            var serv = dIManager.For<IGenericService<int>>();
+            Assert.True(serv is GenericService<int>);
+            bool equal = serv.Equal(3, 3);
+            Assert.True(equal);
+        }
+
+        [Fact]
+        public void Can_Register_Generic_Interface()
+        {
+            var dIManager = new DIManagerForGenericInterface();
+            var serv = dIManager.For<IGenericService<int>>();
+            Assert.True(serv is GenericService2);
+            bool equal = serv.Equal(3, 3);
+            Assert.True(equal);
+
+            var serv2 = dIManager.For<IGenericService<float>>();
+            Assert.True(serv2 is GenericService<float>);
+            equal = serv2.Equal((float)3.0 ,(float)3.0);
             Assert.True(equal);
         }
     }

@@ -4,11 +4,14 @@ using System.Text;
 
 namespace MicrosoftDIStudy.GenericServices
 {
-    public class GenericService<T> : IGenericService<T>
+
+    public class GenericService2 : IGenericService<int>
     {
-        public bool Equal(T a, T b)
+        public bool Equal(int a, int b)
         {
-            return a.Equals(b);
+            return a == b;
         }
     }
+
+
 }
