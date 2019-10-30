@@ -19,4 +19,14 @@ namespace MicrosoftDIStudy
             _serviceCollection.AddTransient(typeof(IGenericService<>), typeof(GenericService<>));
         }
     }
+
+    public class DIManagerForGenericCaller : DIManagerBase
+    {
+        protected override void ConfigureServices()
+        {
+            _serviceCollection.AddTransient(typeof(IGenericService<>), typeof(GenericService<>));
+            _serviceCollection.AddTransient(typeof(IGenericService<int>), typeof(GenericService2));
+            _serviceCollection.AddTransient(typeof(GenericCaller<>));
+        }
+    }
 }

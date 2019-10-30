@@ -55,5 +55,14 @@ namespace MicrosoftDIStudy
             equal = serv2.Equal((float)3.0 ,(float)3.0);
             Assert.True(equal);
         }
+        [Fact]
+        public void Can_Resolve_Generic_Caller()
+        {
+            var dIManager = new DIManagerForGenericCaller();
+            var serv = dIManager.For<GenericCaller<int>>();
+            Assert.True(serv.Serv is GenericService2);
+            Assert.True(serv.Equal(3, 3));
+
+        }
     }
 }
