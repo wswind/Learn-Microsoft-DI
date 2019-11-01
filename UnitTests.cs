@@ -8,7 +8,7 @@ using System.Reflection;
 using Xunit;
 
 
-namespace MicrosoftDIStudy
+namespace MicrosoftDI.Sample
 {
     public class UnitTests
     {
@@ -27,9 +27,10 @@ namespace MicrosoftDIStudy
         [Fact]
         public void Can_Scan_Assembly_Ends_With_Service()
         {
-            DIManager dIManager = new DIManager( sc=> {
-            var assembly = Assembly.GetExecutingAssembly();
-            ScanAssemblyEndsService(sc,assembly);
+            DIManager dIManager = new DIManager(sc =>
+            {
+                var assembly = Assembly.GetExecutingAssembly();
+                ScanAssemblyEndsService(sc, assembly);
             });
             var serv = dIManager.For<ISampleService>();
             Assert.True(serv is SampleService);
@@ -66,7 +67,8 @@ namespace MicrosoftDIStudy
         [Fact]
         public void Can_Register_Generic_Interface()
         {
-            var dIManager = new DIManager(sc=> {
+            var dIManager = new DIManager(sc =>
+            {
                 sc.AddTransient(typeof(IGenericService<int>), typeof(ExplicitService));
                 sc.AddTransient(typeof(IGenericService<>), typeof(GenericService<>));
 
@@ -78,13 +80,14 @@ namespace MicrosoftDIStudy
 
             var serv2 = dIManager.For<IGenericService<float>>();
             Assert.True(serv2 is GenericService<float>);
-            equal = serv2.Equal((float)3.0 ,(float)3.0);
+            equal = serv2.Equal((float)3.0, (float)3.0);
             Assert.True(equal);
         }
         [Fact]
         public void Can_Resolve_Generic_Caller()
         {
-            var dIManager = new DIManager(sc=> {
+            var dIManager = new DIManager(sc =>
+            {
                 sc.AddTransient(typeof(IGenericService<>), typeof(GenericService<>));
                 sc.AddTransient(typeof(IGenericService<int>), typeof(ExplicitService));
                 sc.AddTransient(typeof(GenericCaller<>));

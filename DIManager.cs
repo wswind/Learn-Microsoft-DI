@@ -5,16 +5,13 @@ namespace MicrosoftDI.Sample
 {
     public class DIManager
     {
-        private ServiceCollection _serviceCollection = null;
         private ServiceProvider _serviceProvider = null;
-        private readonly Action<ServiceCollection> _configureServices;
-
+        
         public DIManager(Action<ServiceCollection> configureServices)
         {
-            _serviceCollection = new ServiceCollection();
-            _configureServices(_serviceCollection);
-            _serviceProvider = _serviceCollection.BuildServiceProvider();
-            _configureServices = configureServices;
+            var serviceCollection = new ServiceCollection();
+            configureServices(serviceCollection);
+            _serviceProvider = serviceCollection.BuildServiceProvider();
         }
 
         public T For<T>()
