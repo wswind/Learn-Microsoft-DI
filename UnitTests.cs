@@ -17,9 +17,9 @@ namespace MicrosoftDIStudy
         {
             DIManager dIManager = new DIManager(sc =>
             {
-                sc.AddTransient<IService, Service>();
+                sc.AddTransient<ICustomService, CustomService>();
             });
-            var serv = dIManager.For<IService>();
+            var serv = dIManager.For<ICustomService>();
             int sum = serv.Sum(1, 2);
             Assert.Equal(3, sum);
         }
@@ -31,8 +31,8 @@ namespace MicrosoftDIStudy
             var assembly = Assembly.GetExecutingAssembly();
             ScanAssemblyEndsService(sc,assembly);
             });
-            var serv = dIManager.For<IService>();
-            Assert.True(serv is Service);
+            var serv = dIManager.For<ICustomService>();
+            Assert.True(serv is CustomService);
             int sum = serv.Sum(1, 2);
             Assert.Equal(3, sum);
         }

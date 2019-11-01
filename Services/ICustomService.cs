@@ -1,6 +1,6 @@
 ﻿namespace MicrosoftDI.Sample.Services
 {
-    public interface IService
+    public interface ICustomService
     {
         int Sum(int a,int b);
     }
