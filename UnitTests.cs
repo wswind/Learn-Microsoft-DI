@@ -17,9 +17,9 @@ namespace MicrosoftDIStudy
         {
             DIManager dIManager = new DIManager(sc =>
             {
-                sc.AddTransient<ICustomService, CustomService>();
+                sc.AddTransient<ISampleService, SampleService>();
             });
-            var serv = dIManager.For<ICustomService>();
+            var serv = dIManager.For<ISampleService>();
             int sum = serv.Sum(1, 2);
             Assert.Equal(3, sum);
         }
@@ -31,8 +31,8 @@ namespace MicrosoftDIStudy
             var assembly = Assembly.GetExecutingAssembly();
             ScanAssemblyEndsService(sc,assembly);
             });
-            var serv = dIManager.For<ICustomService>();
-            Assert.True(serv is CustomService);
+            var serv = dIManager.For<ISampleService>();
+            Assert.True(serv is SampleService);
             int sum = serv.Sum(1, 2);
             Assert.Equal(3, sum);
         }
@@ -67,12 +67,12 @@ namespace MicrosoftDIStudy
         public void Can_Register_Generic_Interface()
         {
             var dIManager = new DIManager(sc=> {
-                sc.AddTransient(typeof(IGenericService<int>), typeof(GenericService2));
+                sc.AddTransient(typeof(IGenericService<int>), typeof(ExplicitService));
                 sc.AddTransient(typeof(IGenericService<>), typeof(GenericService<>));
 
             });
             var serv = dIManager.For<IGenericService<int>>();
-            Assert.True(serv is GenericService2);
+            Assert.True(serv is ExplicitService);
             bool equal = serv.Equal(3, 3);
             Assert.True(equal);
 
@@ -86,11 +86,11 @@ namespace MicrosoftDIStudy
         {
             var dIManager = new DIManager(sc=> {
                 sc.AddTransient(typeof(IGenericService<>), typeof(GenericService<>));
-                sc.AddTransient(typeof(IGenericService<int>), typeof(GenericService2));
+                sc.AddTransient(typeof(IGenericService<int>), typeof(ExplicitService));
                 sc.AddTransient(typeof(GenericCaller<>));
             });
             var serv = dIManager.For<GenericCaller<int>>();
-            Assert.True(serv.Serv is GenericService2);
+            Assert.True(serv.Serv is ExplicitService);
             Assert.True(serv.Equal(3, 3));
 
         }
