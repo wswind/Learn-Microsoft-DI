@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MicrosoftDIStudy.Services
+﻿namespace MicrosoftDI.Sample.Services
 {
     public class Service : IService
     {

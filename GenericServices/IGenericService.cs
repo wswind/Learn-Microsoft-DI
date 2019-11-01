@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MicrosoftDIStudy.GenericServices
+﻿namespace MicrosoftDI.Sample.GenericServices
 {
     public interface IGenericService<in T>
     {
