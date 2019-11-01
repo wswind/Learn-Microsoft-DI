@@ -7,4 +7,10 @@
             return a.Equals(b);
         }
     }
+
+    public interface IGenericService<in T>
+    {
+        bool Equal(T a, T b);
+    }
+
 }
