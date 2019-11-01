@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MicrosoftDI.Sample.Services
+﻿namespace MicrosoftDI.Sample.Services
 {
     public class MoreInTypeService<T1, T2> : IMoreInTypeService<T1>
     {

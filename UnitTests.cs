@@ -1,6 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using MicrosoftDI.Sample;
 using MicrosoftDI.Sample.GenericServices;
 using MicrosoftDI.Sample.Services;
 using System;
