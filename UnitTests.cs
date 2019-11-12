@@ -122,5 +122,59 @@ namespace MicrosoftDI.Sample
                 Output.WriteLine(ex.Message);
             }
         }
+
+        //https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-3.0&tabs=visual-studio#consuming-a-scoped-service-in-a-background-task-1
+        [Fact]
+        public void Can_Use_Scope()
+        {
+            var diManager = new diManager(sc =>
+            {
+                sc.AddScoped<ISampleService, SampleService>();
+            });
+           
+            var serv = diManager.For<ISampleService>();
+            Assert.True(serv != null);
+            Assert.True(serv is SampleService);
+
+            IServiceProvider sp = diManager.For<IServiceProvider>();
+            Assert.True(sp != null);
+
+            ISampleService s1, s2;
+            s1 = sp.GetService<ISampleService>();
+            s2 = sp.GetService<ISampleService>();
+            Assert.True(s1 == s2);
+
+            using (var scope = sp.CreateScope())
+            {
+                s1 = scope.ServiceProvider.GetService<ISampleService>();
+            }
+            using (var scope = sp.CreateScope())
+            {
+                s2 = scope.ServiceProvider.GetService<ISampleService>();
+            }
+
+            Assert.True(s1 != s2);
+
+
+            using (var scope = sp.CreateScope())
+            {
+                s1 = scope.ServiceProvider.GetService<ISampleService>();
+                //different compare to autofac nested scope
+                //https://docs.autofac.org/en/latest/lifetime/instance-scope.html#instance-per-matching-lifetime-scope
+                using (var scope2 = scope.ServiceProvider.CreateScope())
+                {
+                    s2 = scope2.ServiceProvider.GetService<ISampleService>();
+                }
+                Assert.True(s1 != s2);
+            }
+           
+
+            using (var scope = sp.CreateScope())
+            {
+                var s3 = scope.ServiceProvider.GetRequiredService<ISampleService>();
+                var s4 = scope.ServiceProvider.GetRequiredService<ISampleService>();
+                Assert.True(s3 == s4);
+            }
+        }
     }
 }
