@@ -37,27 +37,14 @@ namespace MicrosoftDI.Sample
             diManager diManager = new diManager(sc =>
             {
                 var assembly = Assembly.GetExecutingAssembly();
-                ScanAssemblyEndsService(sc, assembly);
+                sc.RegisterByAssembly("SampleService", ServiceLifetime.Transient, false, assembly);
             });
             var serv = diManager.For<ISampleService>();
             Assert.True(serv is SampleService);
             int sum = serv.Sum(1, 2);
             Assert.Equal(3, sum);
         }
-        private void ScanAssemblyEndsService(ServiceCollection sc, params Assembly[] assemblies)
-        {
-            var alltypes = assemblies.SelectMany(x => x.DefinedTypes).Select(x => x.AsType());
-            var implTypes = alltypes.Where(x => x.IsClass && !x.IsAbstract && x.Name.EndsWith("Service"));
-            foreach (var implType in implTypes)
-            {
-                var className = implType.Name;
-                var servType = implType.GetInterfaces().Where(x => x.Name == $"I{className}").FirstOrDefault();
-                if (servType != null)
-                {
-                    sc.TryAddTransient(servType, implType);
-                }
-            }
-        }
+      
         [Fact]
         public void Can_Register_Generic_Typs()
         {
