@@ -1,4 +1,4 @@
-# Microsoft.Extensions.DependencyInjection.AdvanceUseage
+# README
 
 This is a advance usage demo for Microsoft.Extensions.DependencyInjection.
 
