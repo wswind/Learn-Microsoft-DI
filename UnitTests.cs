@@ -163,5 +163,20 @@ namespace MicrosoftDI.Sample
                 Assert.True(s3 == s4);
             }
         }
+        
+        [Fact]
+        public void Can_Choose_Constructor()
+        {
+            var diManager = new diManager(sc =>
+            {
+                sc.AddTransient<IFoo, Foo>()
+                   .AddTransient<IBar, Bar>()
+                   .AddTransient<IBaz,Baz>()
+                   .AddTransient<IGux, Gux>();
+            });
+
+            var s = diManager.For<IGux>();
+        }
+
     }
 }
