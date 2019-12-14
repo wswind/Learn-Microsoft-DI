@@ -8,10 +8,6 @@ namespace MicrosoftDI.Sample
 {
     public static class ServiceCollectionExtensions
     {
-        //public static IServiceCollection RegisterByAssembly(this IServiceCollection services, string endString, ServiceLifetime lifetime, bool optionnal, params Assembly[] assemblies)
-        //{
-        //    return services.RegisterByAssembly(new string[] { endString }, lifetime, optionnal, assemblies);
-        //}
         public static IServiceCollection RegisterByAssembly(
             this IServiceCollection services, string endString, 
             ServiceLifetime lifetime, bool optional, params Assembly[] assemblies)
@@ -24,7 +20,7 @@ namespace MicrosoftDI.Sample
             var implTypes = alltypes.Where(x => x.IsClass && !x.IsAbstract && x.Name.EndsWith(endString));
             if(!implTypes.Any() && optional == false)
             {
-                throw new ApplicationException($"Can't find classes endswith {endString}.");
+                throw new InvalidOperationException($"Can't find classes endswith {endString}.");
             }
 
             foreach (var implType in implTypes)
@@ -34,7 +30,7 @@ namespace MicrosoftDI.Sample
 
                 if (optional == false && servType == null)
                 {
-                    throw new ApplicationException($"Can't find interface I{className} for class {servType.FullName}");
+                    throw new InvalidOperationException($"Can't find interface I{className} for class {servType.FullName}");
                 }
                 if (servType != null)
                 {
