@@ -174,8 +174,14 @@ namespace MicrosoftDI.Sample
                    .AddTransient<IBaz,Baz>()
                    .AddTransient<IGux, Gux>();
             });
-
-            var s = diManager.For<IGux>();
+            try
+            {
+                var s = diManager.For<IGux>();
+            }
+            catch(Exception ex)
+            {
+                Assert.IsType<InvalidOperationException>(ex);
+            }
         }
 
     }
