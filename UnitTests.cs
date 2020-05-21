@@ -22,7 +22,7 @@ namespace MicrosoftDI.Sample
         [Fact]
         public void Can_Use_Simple_DI()
         {
-            diManager diManager = new diManager(sc =>
+            DiManager diManager = new DiManager(sc =>
             {
                 sc.AddTransient<ISampleService, SampleService>();
             });
@@ -34,7 +34,7 @@ namespace MicrosoftDI.Sample
         [Fact]
         public void Can_Scan_Assembly_Ends_With_Service()
         {
-            diManager diManager = new diManager(sc =>
+            DiManager diManager = new DiManager(sc =>
             {
                 var assembly = Assembly.GetExecutingAssembly();
                 sc.RegisterByAssembly("SampleService", ServiceLifetime.Transient, false, assembly);
@@ -48,7 +48,7 @@ namespace MicrosoftDI.Sample
         [Fact]
         public void Can_Register_Generic_Typs()
         {
-            var diManager = new diManager(sc =>
+            var diManager = new DiManager(sc =>
             {
                 sc.AddTransient(typeof(IGenericService<>), typeof(GenericService<>));
             });
@@ -61,7 +61,7 @@ namespace MicrosoftDI.Sample
         [Fact]
         public void Can_Register_Generic_Interface()
         {
-            var diManager = new diManager(sc =>
+            var diManager = new DiManager(sc =>
             {
                 sc.AddTransient(typeof(IGenericService<int>), typeof(ExplicitService));
                 sc.AddTransient(typeof(IGenericService<>), typeof(GenericService<>));
@@ -80,7 +80,7 @@ namespace MicrosoftDI.Sample
         [Fact]
         public void Can_Resolve_Generic_Caller()
         {
-            var diManager = new diManager(sc =>
+            var diManager = new DiManager(sc =>
             {
                 sc.AddTransient(typeof(IGenericService<>), typeof(GenericService<>));
                 sc.AddTransient(typeof(IGenericService<int>), typeof(ExplicitService));
@@ -95,7 +95,7 @@ namespace MicrosoftDI.Sample
         [Fact]
         public void Can_Not_Resolve_MoreType_Service()
         {
-            var diManager = new diManager(sc =>
+            var diManager = new DiManager(sc =>
             {
                 sc.AddTransient(typeof(IMoreInTypeService<>), typeof(MoreInTypeService<,>));
             });
@@ -114,7 +114,7 @@ namespace MicrosoftDI.Sample
         [Fact]
         public void Can_Use_Scope()
         {
-            var diManager = new diManager(sc =>
+            var diManager = new DiManager(sc =>
             {
                 sc.AddScoped<ISampleService, SampleService>();
             });
@@ -167,7 +167,7 @@ namespace MicrosoftDI.Sample
         [Fact]
         public void Can_Choose_Constructor()
         {
-            var diManager = new diManager(sc =>
+            var diManager = new DiManager(sc =>
             {
                 sc.AddTransient<IFoo, Foo>()
                    .AddTransient<IBar, Bar>()
