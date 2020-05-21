@@ -3,11 +3,11 @@ using System;
 
 namespace MicrosoftDI.Sample
 {
-    public class DiManager
+    public class DIManager
     {
         private ServiceProvider _serviceProvider = null;
         
-        public DiManager(Action<ServiceCollection> configureServices)
+        public DIManager(Action<ServiceCollection> configureServices)
         {
             var serviceCollection = new ServiceCollection();
             configureServices(serviceCollection);
